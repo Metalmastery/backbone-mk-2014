@@ -162,7 +162,7 @@ var MainViewParse = BaseView.extend({
 //		parse collection creation
 		this.models.parseList = new ParseShoppingList();
 
-//		attach backbone collection to list
+//		attach parse collection to list
 		this.views.list = new ListView( { model : this.models.parseList} );
 
 		addFormContainer.html(this.views.addForm.el);
