@@ -6,29 +6,15 @@
 
 var MainView = BaseView.extend({
 	templateUrl : 'views/main/main.html',
-	events : {
-		'click #logout' : 'logout'
-	},
 	models : {
 		list : null
 	},
 	views : {
 		addForm : null,
-		list : null,
-		auth : null
+		list : null
 	},
 	onInitialize : function (){
 		var self = this;
-
-		/**
-		 * @type {ListCollection}
-		 */
-//		this.models.list = new ListCollection();
-
-//		normal backbone collection validation callback
-//		this.models.list.on('invalid', function (model, error){
-//			self.showError(error);
-//		});
 
 		/**
 		 * subscribe to events from
@@ -53,26 +39,16 @@ var MainView = BaseView.extend({
 		this.vent.on('toggleFinished', function (index){
 			self.toggleFinished(index);
 		});
-
-		/**
-		 * subscribe to events from
-		 * @see AuthView.authSuccess
-		 */
-		this.vent.on('loginSuccess', function (){
-			self.showMainScreen();
-		});
-
 	},
 	/**
 	 * @see BaseView.render
 	 */
 	onRender : function (){
-		this.views.auth = new AuthView();
 		this.views.addForm = new AddForm();
 
-//		this.views.list = new ListView( { model : this.models.list} );
+		this.views.list = new ListView( { model : this.models.list} );
 
-		this.showAuth();
+		this.showMainScreen();
 	},
 	showError : function (error){
 		alert(JSON.stringify(error, null, 4));
@@ -85,34 +61,7 @@ var MainView = BaseView.extend({
 		console.log('main addItem', item);
 
 //		normal backbone collection add
-//		this.models.list.add(item, {validate : true});
-
-		var self = this;
-
-//		we can use anonymous data and don't send any personal data
-//		just place raw 'item' there
-// 		this.models.parseList.create(item, {
-//			validate: true,
-//				error : function (model, error){
-//				self.showError(error)
-//			}
-//		});
-
-//		or we can add information about current user to each item
-		/**
-		 * copy received data and add some additional data about creator
-		 */
-		var data = _.extend({
-			user:    Parse.User.current(),
-			ACL:     new Parse.ACL(Parse.User.current())
-		}, item);
-//		so here we use extended 'data'
-		this.models.parseList.create(data, {
-			validate: true,
-			error : function (model, error){
-				self.showError(error)
-			}
-		});
+		this.models.list.add(item, {validate : true});
 	},
 	/**
 	 * @function
@@ -120,29 +69,17 @@ var MainView = BaseView.extend({
 	 */
 	removeItem : function (index){
 //		normal backbone collection remove
-//	    var modelToRemove = this.models.list.at(index);
-//		this.models.list.remove(modelToRemove);
-
-//		parse remove
-		var modelToRemove = this.models.parseList.at(index);
-		modelToRemove.destroy();
+	    var modelToRemove = this.models.list.at(index);
+		this.models.list.remove(modelToRemove);
 	},
 	toggleFinished : function (index){
-//	    var checkedModel = this.models.list.at(index);
-	    var checkedModel = this.models.parseList.at(index);
+//		backbone model
+	    var checkedModel = this.models.list.at(index);
 
-		/**
-		 * set new value
-		 */
 		checkedModel.set({finished : !checkedModel.get('finished')});
 
-		/**
-		 * immediately save to parse.com server
-		 * or you can save model manually to avoid multiple requests (add button 'save' for example)
-		 */
-		checkedModel.save();
-
-//		this.models.list.saveLocal();
+//		backbone local save
+		this.models.list.saveLocal();
 	},
 	/**
 	 * just clear all HTML data to simulate 'pfgination' between views
@@ -172,46 +109,24 @@ var MainView = BaseView.extend({
 		 * so we can erase all data manualy and re-render the list
 		 * or just create new instances
 		 */
+
 		/**
-		 * @type {ParseShoppingList}
+		 * @type {ListCollection}
 		 */
-		this.models.parseList = new ParseShoppingList();
-		this.views.list = new ListView( { model : this.models.parseList} );
+//		backbone collection creation
+		this.models.list = new ListCollection();
+
+//		normal backbone collection validation callback
+		var self = this;
+		this.models.list.on('invalid', function (model, error){
+			self.showError(error);
+		});
+
+//		attach backbone collection to list
+		this.views.list = new ListView( { model : this.models.list} );
 
 		addFormContainer.html(this.views.addForm.el);
 		listContainer.html(this.views.list.el);
-	},
-	/**
-	 * show auth view
-	 * @see AuthView
-	 */
-	showAuth : function (){
-		var authContainer = this.$el.find('#authContainer');
-
-		this.clearContainers();
-
-		authContainer.html(this.views.auth.el);
-	},
-	/**
-	 * logout and show auth view
-	 */
-	logout : function (){
-		Parse.User.logOut();
-		this.showAuth();
-	},
-	/**
-	 * just an example, you can check if user logged in or not
-	 * @returns {boolean}
-	 */
-	isUserLoggedIn : function (){
-		var currentUser = Parse.User.current();
-		if (currentUser) {
-			// ok, user is logged in
-			return true;
-		} else {
-			// looks like nobody here
-			return false;
-		}
 	}
 });
 

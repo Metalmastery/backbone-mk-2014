@@ -1,3 +1,6 @@
+/**
+ * @class ListModel
+ */
 var ListModel = Backbone.Model.extend({
 	defaults : {
 		name : '',
@@ -23,12 +26,16 @@ var ListModel = Backbone.Model.extend({
 	}
 });
 
+/**
+ * @class ListCollection
+ */
 var ListCollection = Backbone.Collection.extend({
 	model : ListModel,
 
 	initialize : function (){
 	  	this.on('add', this.saveLocal);
 	  	this.on('change', this.saveLocal);
+	  	this.on('remove', this.saveLocal);
 		this.loadLocal();
 	},
 
