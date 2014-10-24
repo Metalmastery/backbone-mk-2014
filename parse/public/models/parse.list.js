@@ -1,3 +1,6 @@
+/**
+ * @class ParseShoppingItem
+ */
 var ParseShoppingItem = Parse.Object.extend("ShoppingItem", {
 	defaults : {
 		name : '',
@@ -24,6 +27,9 @@ var ParseShoppingItem = Parse.Object.extend("ShoppingItem", {
 	}
 });
 
+/**
+ * @class ParseShoppingList
+ */
 var ParseShoppingList = Parse.Collection.extend({
 	model : ParseShoppingItem,
 	query : new Parse.Query(ParseShoppingItem),

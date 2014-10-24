@@ -79,7 +79,7 @@ var MainView = BaseView.extend({
 		checkedModel.set({finished : !checkedModel.get('finished')});
 
 //		backbone local save
-		this.models.list.saveLocal();
+//		this.models.list.saveLocal();
 	},
 	/**
 	 * just clear all HTML data to simulate 'pfgination' between views

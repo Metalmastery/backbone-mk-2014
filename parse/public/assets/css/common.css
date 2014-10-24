@@ -13,7 +13,7 @@ input {
 }
 
 button{
-    width: 20%;
+    width: 100%;
     background-color: greenyellow;
     padding: 5px 15px;
     height: 30px;
@@ -25,6 +25,7 @@ button{
     font-weight: bold;
     border: none;
     margin: 0 0 20px;
+    box-sizing: border-box;
 }
 .row{
     padding: 0 0 15px;
@@ -38,7 +39,7 @@ h5{
 }
 .row label{
     float: left;
-    margin: 0 10px 0 0;
+    padding-right: 5%;
     width: 20%;
 }
 .row input[type="text"]{
@@ -49,4 +50,4 @@ h5{
     height:30px;
     padding: 5px 10px;
     box-sizing: border-box;
-  }
+    width: 75%; }

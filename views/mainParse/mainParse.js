@@ -89,6 +89,7 @@ var MainViewParse = BaseView.extend({
 		/**
 		 * copy received data and add some additional data about creator
 		 */
+
 		var data = _.extend({
 			user:    Parse.User.current(),
 			ACL:     new Parse.ACL(Parse.User.current())
@@ -101,6 +102,7 @@ var MainViewParse = BaseView.extend({
 				self.showError(error)
 			}
 		});
+//		this.models.parseList.add(data, {validate : true});
 	},
 	/**
 	 * @function
@@ -110,6 +112,7 @@ var MainViewParse = BaseView.extend({
 //		parse remove
 		var modelToRemove = this.models.parseList.at(index);
 		modelToRemove.destroy();
+//		this.models.parseList.remove(modelToRemove);
 	},
 	toggleFinished : function (index){
 //		parse model
