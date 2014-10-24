@@ -1,0 +1,18 @@
+<ul class="list">
+    <% _.each(model, function(item) { %>
+    <li class="<%= item.finished ? 'finished' : '' %>">
+        <div class="delete">del</div>
+        <div class="itemContent">
+            <span class="itemName">
+                <%= item.name %>
+            </span>
+            <span class="itemAmount">
+                <%= item.amount %>
+            </span>
+            <input type="checkbox" <%= item.finished ? 'checked=checked' : '' %>/>
+        </div>
+    </li>
+    <% }) %>
+
+</ul>
+<div id="checkOut"></div>

@@ -1,0 +1,33 @@
+.list li {
+    line-height: 30px;
+    height: 30px;
+    width: 100%;
+    display: block;
+    margin: 0 0 10px;
+}
+
+.list li:after{ clear: both; }
+
+
+.list li .itemContent {
+    background-color: #008A00;
+    height : 100%;
+    overflow: hidden;
+    margin-right: 33px;
+    padding-left: 10px;
+}
+
+.list li.finished .itemContent {
+    background-color: darkslategrey;
+}
+
+.list li .delete {
+    float: right;
+    /*background-color: #e51300;*/
+    background-color: #a20025;
+    width : 30px;
+    height: 100%;
+    text-align: center;
+}
+
+
