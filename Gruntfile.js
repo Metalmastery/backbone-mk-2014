@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
 		clean: {
 			tmp : ['tmp'],
-			cordova : ['cordovaApp/www']
+			all : ['tmp', 'cordovaApp/www', 'parse/public' ]
 		},
 		copy: {
 			tmp: {
@@ -15,10 +15,10 @@ module.exports = function(grunt) {
 					{expand: true, src: ['index.js' , 'index.html', 'index.css'], dest: 'tmp/', filter: 'isFile'},
 
 					// includes files within path and its sub-directories
-					{expand: true, src: ['views/**'], dest: 'tmp/views/'},
-					{expand: true, src: ['models/**'], dest: 'tmp/models/'},
-					{expand: true, src: ['libs/**'], dest: 'tmp/libs/'},
-					{expand: true, src: ['assets/**'], dest: 'tmp/assets/'}
+					{expand: true, src: ['views/**'], dest: 'tmp/'},
+					{expand: true, src: ['models/**'], dest: 'tmp/'},
+					{expand: true, src: ['libs/**'], dest: 'tmp/'},
+					{expand: true, src: ['assets/**'], dest: 'tmp/'}
 
 				]
 			},
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	// By default, lint and run all tests.
-	grunt.registerTask('default', ['clean:tmp', 'copy:tmp', 'copy:parse', 'copy:cordova', 'clean:tmp']);
-//	grunt.registerTask('default', ['copy:tmp', 'copy:tmp2']);
+	grunt.registerTask('default', ['clean:all', 'copy:tmp', 'copy:parse', 'copy:cordova', 'clean:tmp']);
+//	grunt.registerTask('default', ['copy:tmp']);
 
 };
