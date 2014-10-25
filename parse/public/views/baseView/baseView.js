@@ -21,7 +21,7 @@ var BaseView = Backbone.View.extend({
 	 */
 	initialize : function (){
 		var self = this;
-//		console.log(this.model);
+		console.log('init');
 		if (this.model) {
 			this.listenTo(this.model, "add", this.render);
 			this.listenTo(this.model, "remove", this.render);
@@ -30,10 +30,17 @@ var BaseView = Backbone.View.extend({
 			this.listenTo(this.model, "destroy", this.render);
 		}
 		if (this.templateUrl.length) {
-			$.get(this.templateUrl, function (data){
+			console.log('get template', this.templateUrl);
+			var request = $.get(this.templateUrl, function (data){
 				self.template = _.template(data);
 				self.render();
+			}, 'html')
+			.fail(function() {
+				alert( "error" );
+				console.log(arguments);
 			});
+
+			console.log(request);
 		}
 
 		this.vent = vent;

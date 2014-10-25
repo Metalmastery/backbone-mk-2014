@@ -8,6 +8,8 @@ module.exports = function(grunt) {
 			tmp : ['tmp'],
 			all : ['tmp', 'cordovaApp/www', 'parse/public' ]
 		},
+		concat : {}
+		,
 		copy: {
 			tmp: {
 				files: [
@@ -33,9 +35,9 @@ module.exports = function(grunt) {
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// By default, lint and run all tests.
 	grunt.registerTask('default', ['clean:all', 'copy:tmp', 'copy:parse', 'copy:cordova', 'clean:tmp']);
-//	grunt.registerTask('default', ['copy:tmp']);
 
 };

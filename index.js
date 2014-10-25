@@ -1,3 +1,19 @@
+//if (device.platform == 'firefoxos') {
+//	$.ajaxPrefilter(function (options) {
+//		if (options.firefoxOS) {
+//			options.xhr = function () {
+//				return new window.XMLHttpRequest({
+//					mozSystem: true
+//				});
+//			}
+//		}
+//	});
+//
+//	$.ajaxSetup({
+//		firefoxOS: true
+//	});
+//}
+
 Parse.initialize("xakDh9gjHT8Eqd7D0vZA0eMicaQONTfcemI1AIQ5",
 	"0t3NTehbxRsVi7lhTrlc3PC28yEqq0OCkpZoAPLF");
 //Parse.initialize("c0Ta36PEqwG7vFLy3fqFkvZPHxP370sZQvbIwtX9",
@@ -5,6 +21,8 @@ Parse.initialize("xakDh9gjHT8Eqd7D0vZA0eMicaQONTfcemI1AIQ5",
 
 //var main = new MainView();
 var main = new MainViewParse();
+
+console.log('test', document.getElementById('screen'));
 
 document.getElementById('screen').appendChild(main.el);
 
